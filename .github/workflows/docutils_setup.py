@@ -43,15 +43,9 @@ def modify_readme(content: str) -> str:
 
 
 if __name__ == "__main__":
-    project_path = sys.argv[1]
-    readme_path = sys.argv[2]
-    with open(project_path) as f:
-        content = f.read()
-    content = modify_toml(content)
-    with open(project_path, "w") as f:
-        f.write(content)
-    with open(readme_path) as f:
-        content = f.read()
-    content = modify_readme(content)
-    with open(readme_path, "w") as f:
-        f.write(content)
+    from pathlib import Path
+    
+    project_path = Path(sys.argv[1])
+    readme_path = Path(sys.argv[2])
+    project_path.write_text(modify_toml(project_path.read_text()))
+    readme_path.write_text(modify_readme(readme_path.read_text()))
